@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   Component,
   computed,
@@ -19,18 +19,8 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { PortalModule } from '@angular/cdk/portal';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { HlmSidebarTooltipComponent } from './hlm-sidebar-tooltip.component';
 
-@Component({
-  selector: 'tooltip-component',
-  template: `<div class="bg-white border border-gray-200 rounded-md shadow-lg p-2 min-w-max text-xs whitespace-nowrap">
-    {{ text() }}
-  </div>`,
-  standalone: true,
-  imports: [CommonModule]
-})
-export class TooltipComponent {
-  text = signal('');
-}
 
 @Component({
   selector: 'hlm-sidebar-item',
@@ -131,7 +121,7 @@ export class HlmSidebarItemComponent implements OnDestroy {
     });
 
     // Create the portal with the tooltip content
-    const tooltipPortal = new ComponentPortal(TooltipComponent);
+    const tooltipPortal = new ComponentPortal(HlmSidebarTooltipComponent);
     const tooltipRef = this.overlayRef.attach(tooltipPortal);
 
     tooltipRef.instance.text.set(this.label());
