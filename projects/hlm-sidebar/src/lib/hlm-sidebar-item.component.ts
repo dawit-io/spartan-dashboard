@@ -54,7 +54,6 @@ export class TooltipComponent {
         <div
           #iconContainer
           class="transition-transform duration-200 ease-in-out group-hover:scale-110 relative"
-          (click)="onClick($event)"
           (mouseenter)="handleMouseEnter()"
           (mouseleave)="handleMouseLeave()"
         >
@@ -94,11 +93,6 @@ export class HlmSidebarItemComponent implements OnDestroy {
         this.removeTooltip();
       }
     });
-  }
-
-  public onClick(event: MouseEvent): void {
-    event.stopPropagation();
-    console.log('Icon clicked!');
   }
 
   handleMouseEnter(): void {
