@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve spartan-dashboard",
-    "build": "npm run build:core && npm run build:hlm && npm run build:app",
+    "build": "npm run build:brn && npm run build:hlm && npm run build:app",
     "build:brn": "ng build brn-sidebar",
     "build:hlm": "ng build hlm-sidebar",
     "build:app": "ng build spartan-dashboard",
