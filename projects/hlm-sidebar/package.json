@@ -1,0 +1,18 @@
+{
+  "name": "hlm-sidebar",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "@ng-icons/core": ">=29.0.0",
+		"@ng-icons/lucide": ">=29.0.0",
+    "@dawit-io/brn-sidebar": ">=0.0.1",
+    "@spartan-ng/ui-icon-helm": ">=0.0.1-alpha.357",
+		"clsx": ">=2.1.1",
+    "@spartan-ng/brain": ">=0.0.1-alpha.429"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}

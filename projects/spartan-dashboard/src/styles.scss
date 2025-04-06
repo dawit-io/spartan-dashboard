@@ -1,0 +1,79 @@
+@import '@angular/cdk/overlay-prebuilt.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --font-sans: ''
+}
+
+:root {
+
+  /* Base colors */
+  --background: 0 0% 100%;        /* Pure white */
+  --foreground: 0 0% 3.9%;       /* Almost black for text */
+
+  /* Card & Popover surfaces */
+  --card: 0 0% 100%;             /* Pure white like background */
+  --card-foreground: 0 0% 3.9%;  /* Same as main foreground */
+  --popover: 0 0% 100%;          /* Pure white like background */
+  --popover-foreground: 0 0% 3.9%; /* Same as main foreground */
+
+  /* Primary & Secondary colors */
+  --primary: 0 0% 0%;            /* Pure black */
+  --primary-foreground: 0 0% 100%; /* Pure white */
+  --secondary: 0 0% 96.1%;       /* Very light gray */
+  --secondary-foreground: 0 0% 0%; /* Pure black */
+
+  /* Muted & Accent variations */
+  --muted: 0 0% 96.1%;          /* Very light gray */
+  --muted-foreground: 0 0% 45.1%; /* Medium gray */
+  --accent: 0 0% 96.1%;         /* Very light gray */
+  --accent-foreground: 0 0% 9%;  /* Very dark gray */
+
+  /* Functional states */
+  --destructive: 0 84.2% 60.2%;    /* Keeping red for errors */
+  --destructive-foreground: 0 0% 98%; /* Almost white */
+
+  /* Borders, Inputs & Focus */
+  --border: 0 0% 89.8%;         /* Light gray */
+  --input: 0 0% 89.8%;          /* Light gray */
+  --ring: 0 0% 3.9%;            /* Almost black */
+
+  --radius: 1rem;
+ }
+
+ .dark {
+  /* Base colors */
+  --background: 0 0% 3.9%;        /* Almost black */
+  --foreground: 0 0% 100%;        /* Pure white */
+
+  /* Card & Popover surfaces */
+  --card: 0 0% 3.9%;             /* Almost black like background */
+  --card-foreground: 0 0% 100%;   /* Pure white */
+  --popover: 0 0% 3.9%;          /* Almost black like background */
+  --popover-foreground: 0 0% 100%; /* Pure white */
+
+  /* Primary & Secondary colors */
+  --primary: 0 0% 100%;           /* Pure white */
+  --primary-foreground: 0 0% 0%;  /* Pure black */
+  --secondary: 0 0% 15.9%;        /* Very dark gray */
+  --secondary-foreground: 0 0% 100%; /* Pure white */
+
+  /* Muted & Accent variations */
+  --muted: 0 0% 15.9%;           /* Very dark gray */
+  --muted-foreground: 0 0% 63.9%; /* Medium-light gray */
+  --accent: 0 0% 15.9%;          /* Very dark gray */
+  --accent-foreground: 0 0% 100%; /* Pure white */
+
+  /* Functional states */
+  --destructive: 0 62.8% 30.6%;    /* Darker red */
+  --destructive-foreground: 0 0% 98%; /* Almost white */
+
+  /* Borders, Inputs & Focus */
+  --border: 0 0% 15.9%;          /* Very dark gray */
+  --input: 0 0% 15.9%;           /* Very dark gray */
+  --ring: 0 0% 83.9%;            /* Light gray */
+ }

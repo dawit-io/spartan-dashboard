@@ -1,8 +1,34 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "brn-sidebar": [
+        "./dist/brn-sidebar"
+      ],
+      "hlm-sidebar": [
+        "./dist/hlm-sidebar"
+      ],
+      "@dawit-io/brn-sidebar": [
+        "./dist/brn-sidebar",
+        "./projects/brn-sidebar/src/public-api.ts"
+      ],
+      "@dawit-io/hlm-sidebar": [
+        "./dist/hlm-sidebar",
+        "./projects/hlm-sidebar/src/public-api.ts"
+      ],
+      "@spartan-ng/ui-breadcrumb-helm": [
+        ".\\libs/ui/ui-breadcrumb-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-icon-helm": [
+        ".\\libs/ui/ui-icon-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-menu-helm": [
+        ".\\libs/ui/ui-menu-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-button-helm": [
+        ".\\libs/ui/ui-button-helm/src/index.ts"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
