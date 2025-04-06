@@ -33,7 +33,6 @@ import { BrnSidebarService } from '@dawit-io/brn-sidebar';
   ],
   template: `
     <div class="flex h-screen bg-background">
-      <sidebar> </sidebar>
       <div class="flex-1">
         <hlm-sidebar-content-header>
           <hlm-sidebar-trigger />
