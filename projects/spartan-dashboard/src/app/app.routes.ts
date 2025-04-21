@@ -1,17 +1,22 @@
 import { Routes } from '@angular/router';
+import { ShowcasePageComponent } from './pages/showcase-page.component';
+import { FeaturedComponent } from './showcase/featured.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
+    redirectTo: '/showcase',
+    pathMatch: 'full',
   },
   {
     path: 'home',
-    loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent)
+    loadComponent: () =>
+      import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
+  { path: 'showcase', component: ShowcasePageComponent },
+  { path: 'featured', component: FeaturedComponent },
   {
     path: '**',
-    redirectTo: '/home'
-  }
+    redirectTo: '/showcase',
+  },
 ];

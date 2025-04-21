@@ -18,13 +18,6 @@ import { BrnSidebarService } from '@dawit-io/brn-sidebar';
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    SidebarComponent,
-    HlmSidebarContentHeaderComponent,
-    HlmSidebarTriggerComponent,
-    MainComponent,
-    CommonModule,
-    BreadcrumbComponent,
-    NgIcon,
   ],
   providers: [
     BrnSidebarService,
@@ -32,30 +25,8 @@ import { BrnSidebarService } from '@dawit-io/brn-sidebar';
     provideIcons({ lucideSun, lucideMoon }),
   ],
   template: `
-    <div class="flex h-screen bg-background">
-      <sidebar> </sidebar>
-      <div class="flex-1">
-        <hlm-sidebar-content-header>
-          <hlm-sidebar-trigger />
-          <div class="h-3 w-[1px] bg-foreground/20 ml-2 mr-2"></div>
-          <breadcrumb></breadcrumb>
-          <div class="ml-auto bg-background">
-            <button
-              (click)="themeService.toggleDarkMode()"
-              class="p-2 rounded-md hover:bg-muted"
-            >
-              <ng-icon
-                hlm
-                [name]="themeService.isDarkMode() ? 'lucideSun' : 'lucideMoon'"
-                class="h-5 w-5 text-foreground"
-              />
-            </button>
-          </div>
-        </hlm-sidebar-content-header>
-        <main>
-          <router-outlet />
-        </main>
-      </div>
+    <div class="min-h-screen bg-background">
+      <router-outlet></router-outlet>
     </div>
   `,
 })
