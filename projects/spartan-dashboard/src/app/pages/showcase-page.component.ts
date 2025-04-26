@@ -75,7 +75,7 @@ import { ShowcaseContainerComponent } from '../showcase/showcase-container.compo
           <p
             class="text-center text-sm leading-loose text-muted-foreground md:text-left"
           >
-            © 2025 Spartan Dashboard. All rights reserved.
+            © 2025 Spartan Dashboard.
           </p>
         </div>
       </footer>
@@ -90,32 +90,29 @@ export class ShowcasePageComponent implements OnInit {
   private githubService = inject(GithubCodeExtractorService);
 
   ngOnInit() {
-    // Configura il servizio GitHub con i dettagli specifici
     this.githubService.configure({
       owner: 'dawit-io',
       repo: 'spartan-dashboard',
       branch: 'feature/#showcase',
     });
 
-    // Definisci una struttura file piatta ma con i percorsi completi per GitHub
     const manualFileStructure: FileNode[] = [
       {
         name: 'showcase.component.ts',
-        path: 'projects/spartan-dashboard/src/app/pages/showcase.component.ts',
+        path: 'projects/spartan-dashboard/src/app/showcase/featured.component.ts',
         type: 'file',
         language: 'typescript',
-        content: '', // Verrà riempito dal servizio GitHub
+        content: '',
       },
       {
         name: 'sidebar.component.ts',
         path: 'projects/spartan-dashboard/src/app/layout/sidebar/sidebar.component.ts',
         type: 'file',
         language: 'typescript',
-        content: '', // Verrà riempito dal servizio GitHub
+        content: '',
       },
     ];
 
-    // Carica il contenuto dei file da GitHub
     this.isLoading = true;
     this.githubService
       .loadComponentsFromGithub(manualFileStructure)
@@ -123,12 +120,10 @@ export class ShowcasePageComponent implements OnInit {
       .subscribe({
         next: (updatedStructure) => {
           this.fileStructure = updatedStructure;
-          // Seleziona il primo file per default
           this.findAndSelectFirstFile(this.fileStructure);
         },
         error: (error) => {
-          console.error('Errore nel caricamento dei file da GitHub:', error);
-          // In caso di errore, utilizza comunque la struttura base
+          console.error('Error during loading files from GitHub:', error);
           this.fileStructure = manualFileStructure;
           this.findAndSelectFirstFile(this.fileStructure);
         },

@@ -1,8 +1,9 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { Router } from '@angular/router';
-import {lucideTablet, lucideSmartphone, lucideCode, lucideMonitor, lucideFullscreen } from '@ng-icons/lucide';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { lucideTablet, lucideSmartphone, lucideCode, lucideMonitor, lucideFullscreen } from '@ng-icons/lucide';
 
 type DeviceView = 'desktop' | 'tablet' | 'mobile';
 
@@ -11,8 +12,7 @@ type DeviceView = 'desktop' | 'tablet' | 'mobile';
   standalone: true,
   imports: [
     CommonModule,
-    NgIcon,
-    CommonModule
+    NgIcon
   ],
   providers: [
     provideIcons({
@@ -76,29 +76,29 @@ type DeviceView = 'desktop' | 'tablet' | 'mobile';
                   [class.bg-background]="device === 'desktop'"
                   [class.text-foreground]="device === 'desktop'"
                   [class.shadow-sm]="device === 'desktop'"
-                  (click)="device = 'desktop'">
-                  <ng-icon hlm name="lucideMonitor" class="h-4 w-4" />
+                  (click)="changeDevice('desktop')">
+                  <ng-icon name="lucideMonitor" class="h-4 w-4" />
                 </button>
                 <button
                   class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-2 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                   [class.bg-background]="device === 'tablet'"
                   [class.text-foreground]="device === 'tablet'"
                   [class.shadow-sm]="device === 'tablet'"
-                  (click)="device = 'tablet'">
-                  <ng-icon hlm name="lucideTablet" class="h-4 w-4" />
+                  (click)="changeDevice('tablet')">
+                  <ng-icon name="lucideTablet" class="h-4 w-4" />
                 </button>
                 <button
                   class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-2 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                   [class.bg-background]="device === 'mobile'"
                   [class.text-foreground]="device === 'mobile'"
                   [class.shadow-sm]="device === 'mobile'"
-                  (click)="device = 'mobile'">
-                  <ng-icon hlm name="lucideSmartphone" class="h-4 w-4" />
+                  (click)="changeDevice('mobile')">
+                  <ng-icon name="lucideSmartphone" class="h-4 w-4" />
                 </button>
                 <button
                   class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-2 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                   (click)="openInNewTab($event, '/featured')">
-                  <ng-icon hlm name="lucideFullscreen" class="h-4 w-4" />
+                  <ng-icon name="lucideFullscreen" class="h-4 w-4" />
                 </button>
               </div>
             </div>
@@ -109,17 +109,28 @@ type DeviceView = 'desktop' | 'tablet' | 'mobile';
             <div class="p-2">
               <!-- Preview Content -->
               <div *ngIf="view === 'preview'" class="flex items-center justify-center">
+                <!-- Desktop Mode (Component) -->
                 <div
-                  class="flex items-center justify-center transition-all bg-background"
-                  [class.w-full]="device === 'desktop'"
-                  [class.h-full]="device === 'desktop'"
+                  *ngIf="device === 'desktop'"
+                  class="flex items-center justify-center transition-all bg-background p-2 w-full h-full">
+                  <ng-content select="[showcase-preview]"></ng-content>
+                </div>
+
+                <!-- Tablet/Mobile Mode (Iframe) -->
+                <div
+                  *ngIf="device !== 'desktop'"
+                  class="transition-all bg-background p-0"
                   [class.w-[768px]]="device === 'tablet'"
                   [class.h-[1024px]]="device === 'tablet'"
-                  [class.w-[320px]]="device === 'mobile'"
-                  [class.h-[568px]]="device === 'mobile'"
-                  [class.border]="device !== 'desktop'"
-                  [class.rounded-lg]="device !== 'desktop'">
-                  <ng-content select="[showcase-preview]"></ng-content>
+                  [class.w-[400px]]="device === 'mobile'"
+                  [class.h-[844px]]="device === 'mobile'"
+                  [class.border]="true"
+                  [class.rounded-lg]="true">
+                  <iframe
+                    *ngIf="iframeUrl"
+                    [src]="iframeUrl"
+                    class="w-full h-full border-0 p-2">
+                  </iframe>
                 </div>
               </div>
 
@@ -134,15 +145,42 @@ type DeviceView = 'desktop' | 'tablet' | 'mobile';
     </div>
   `
 })
-export class ShowcaseContainerComponent {
+export class ShowcaseContainerComponent implements OnInit {
   @Input() title: string = 'Example Component';
   @Input() categories: string[] = ['Featured', 'Sidebar', 'Authentication', 'Login'];
 
   selectedCategory: string = 'Featured';
   view: 'preview' | 'code' = 'preview';
   device: DeviceView = 'desktop';
+  iframeUrl: SafeResourceUrl | null = null;
 
   private router = inject(Router);
+  private sanitizer = inject(DomSanitizer);
+
+  ngOnInit() {
+    // Inizializza l'URL dell'iframe per il caso iniziale
+    this.updateIframeUrl();
+  }
+
+  changeDevice(newDevice: DeviceView): void {
+    this.device = newDevice;
+    // Se cambiamo a tablet o mobile, aggiorna l'URL dell'iframe
+    if (newDevice !== 'desktop') {
+      this.updateIframeUrl();
+    }
+  }
+
+  private updateIframeUrl(): void {
+    // Recupera l'URL corrente e aggiungi /featured
+    const baseUrl = window.location.origin + window.location.pathname;
+    const targetUrl = new URL('/featured', baseUrl);
+
+    // Aggiungi parametri per il dispositivo
+    targetUrl.searchParams.set('device', this.device);
+
+    // Sanitizza l'URL per sicurezza
+    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(targetUrl.toString());
+  }
 
   openInNewTab(event: MouseEvent, path: string) {
     event.preventDefault();
