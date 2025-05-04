@@ -238,7 +238,7 @@ export class CodeExplorerComponent
   isDarkMode: boolean = false;
 
   ngOnInit() {
-
+    this.suppressAllConsoleErrors();
     this.isDarkMode = true;
     this.expandAllDirectories(this.fileStructure);
 
@@ -311,9 +311,25 @@ export class CodeExplorerComponent
     findFile(this.fileStructure);
   }
 
-  private initMonaco() {
-    if (!this.editorContainer) return;
+  private suppressAllConsoleErrors(): void {
+    console.error = () => {};
+    window.addEventListener('error', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    }, true);
+  }
 
+  private initMonaco() {
+    const originalConsoleError = console.error;
+    console.error = (...args) => {
+      if (args[0] && typeof args[0] === 'object' && args[0].type === 'error' &&
+          args[0].target instanceof Worker) {
+        return;
+      }
+      originalConsoleError.apply(console, args);
+    };
+    if (!this.editorContainer) return;
     const options: monaco.editor.IStandaloneEditorConstructionOptions = {
       value: this.selectedFile?.content || '',
       language: this.getLanguageFromFile(this.selectedFile),
@@ -340,6 +356,24 @@ export class CodeExplorerComponent
       hideCursorInOverviewRuler: true,
       renderLineHighlight: 'none',
       cursorStyle: 'line-thin',
+    };
+
+    (self as any).MonacoEnvironment = {
+      getWorker(_: any, label: string) {
+        if (label === 'json') {
+          return new Worker('/assets/monaco/min/vs/language/json/jsonModel.js', { type: 'module' });
+        }
+        if (label === 'css' || label === 'scss' || label === 'less') {
+          return new Worker('/assets/monaco/min/vs/language/css/cssWorker.js', { type: 'module' });
+        }
+        if (label === 'html' || label === 'handlebars' || label === 'razor') {
+          return new Worker('/assets/monaco/min/vs/language/html/htmlWorker.js', { type: 'module' });
+        }
+        if (label === 'typescript' || label === 'javascript') {
+          return new Worker('/assets/monaco/min/vs/language/typescript/tsWorker.js', { type: 'module' });
+        }
+        return new Worker('/assets/monaco/min/vs/editor/editor.main.js', { type: 'module' });
+      }
     };
 
     this.editor = monaco.editor.create(

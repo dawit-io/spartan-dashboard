@@ -158,27 +158,22 @@ export class ShowcaseContainerComponent implements OnInit {
   private sanitizer = inject(DomSanitizer);
 
   ngOnInit() {
-    // Inizializza l'URL dell'iframe per il caso iniziale
     this.updateIframeUrl();
   }
 
   changeDevice(newDevice: DeviceView): void {
     this.device = newDevice;
-    // Se cambiamo a tablet o mobile, aggiorna l'URL dell'iframe
     if (newDevice !== 'desktop') {
       this.updateIframeUrl();
     }
   }
 
   private updateIframeUrl(): void {
-    // Recupera l'URL corrente e aggiungi /featured
     const baseUrl = window.location.origin + window.location.pathname;
     const targetUrl = new URL('/featured', baseUrl);
 
-    // Aggiungi parametri per il dispositivo
     targetUrl.searchParams.set('device', this.device);
 
-    // Sanitizza l'URL per sicurezza
     this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(targetUrl.toString());
   }
 

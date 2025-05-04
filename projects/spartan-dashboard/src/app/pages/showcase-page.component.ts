@@ -41,12 +41,9 @@ import { ShowcaseContainerComponent } from '../showcase/showcase-container.compo
 
         <!-- Showcase Component -->
         <app-showcase-container [title]="'A simple dashboard layout'">
-          <!-- Preview Content -->
           <div showcase-preview class="w-full h-full">
             <feautured></feautured>
           </div>
-
-          <!-- Code Content -->
           <div showcase-code class="h-[600px]">
             <div
               *ngIf="isLoading"
