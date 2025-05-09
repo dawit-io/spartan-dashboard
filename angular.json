@@ -83,6 +83,9 @@
             "polyfills": ["zone.js"],
             "tsConfig": "projects/spartan-dashboard/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "loader": {
+              ".ttf": "file"
+            },
             "assets": [
               {
                 "glob": "**/*",
@@ -94,12 +97,7 @@
                 "output": "/assets/monaco/"
               }
             ],
-            "styles": ["projects/spartan-dashboard/src/styles.scss"],
-            "scripts": [
-              "node_modules/monaco-editor/min/vs/loader.js",
-              "node_modules/monaco-editor/min/vs/editor/editor.main.nls.js",
-              "node_modules/monaco-editor/min/vs/editor/editor.main.js"
-            ]
+            "styles": ["projects/spartan-dashboard/src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -107,7 +105,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "8MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -157,12 +155,7 @@
                 "output": "/assets/monaco/"
               }
             ],
-            "styles": ["projects/spartan-dashboard/src/styles.scss"],
-            "scripts": [
-              "node_modules/monaco-editor/min/vs/loader.js",
-              "node_modules/monaco-editor/min/vs/editor/editor.main.nls.js",
-              "node_modules/monaco-editor/min/vs/editor/editor.main.js"
-            ]
+            "styles": ["projects/spartan-dashboard/src/styles.scss"]
           }
         }
       }

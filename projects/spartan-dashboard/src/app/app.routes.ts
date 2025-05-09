@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { ShowcasePageComponent } from './pages/showcase-page.component';
-import { FeaturedComponent } from './showcase/featured.component';
+import { DefaultDashboardComponent  } from './showcase/default-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -14,7 +14,7 @@ export const routes: Routes = [
       import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
   { path: 'showcase', component: ShowcasePageComponent },
-  { path: 'featured', component: FeaturedComponent },
+  { path: 'featured', component: DefaultDashboardComponent  },
   {
     path: '**',
     redirectTo: '/showcase',

@@ -3,17 +3,16 @@ import {
   Input,
   OnInit,
   AfterViewInit,
-  ViewChild,
-  ElementRef,
   Output,
   EventEmitter,
   OnDestroy,
   OnChanges,
   SimpleChanges,
+  CUSTOM_ELEMENTS_SCHEMA
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import * as monaco from 'monaco-editor';
 import {
   lucideFolder,
   lucideFolderOpen,
@@ -26,6 +25,7 @@ import {
   lucideCopy,
   lucideCheck,
 } from '@ng-icons/lucide';
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 
 export interface FileNode {
   name: string;
@@ -39,7 +39,8 @@ export interface FileNode {
 @Component({
   selector: 'app-code-explorer',
   standalone: true,
-  imports: [CommonModule, NgIcon],
+  imports: [CommonModule, NgIcon, FormsModule, MonacoEditorModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     provideIcons({
       lucideFolder,
@@ -214,10 +215,24 @@ export interface FileNode {
             {{ copied ? 'Copied' : 'Copy' }}
           </button>
         </div>
-        <div #editorContainer class="flex-1 min-h-[400px]"></div>
+        <div class="flex-1 min-h-[400px]">
+          <ngx-monaco-editor
+            style="height: 100%; min-height: 400px;"
+            [options]="editorOptions"
+            [(ngModel)]="code"
+            (onInit)="onEditorInit($event)"
+          ></ngx-monaco-editor>
+        </div>
       </div>
     </div>
   `,
+  styles: [`
+    ngx-monaco-editor {
+      display: block;
+      height: 100%;
+      min-height: 400px;
+    }
+  `]
 })
 export class CodeExplorerComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy
@@ -226,20 +241,43 @@ export class CodeExplorerComponent
   @Input() selectedFilePath: string = '';
   @Output() fileSelect = new EventEmitter<string>();
 
-  @ViewChild('editorContainer', { static: true }) editorContainer!: ElementRef;
-
-  private themeSubscription: any;
-
   selectedFile: FileNode | null = null;
   selectedFileName: string = '';
   expandedNodes: string[] = [];
-  editor: monaco.editor.IStandaloneCodeEditor | null = null;
+  editor: any = null;
   copied: boolean = false;
-  isDarkMode: boolean = false;
+  isDarkMode: boolean = true;
+  code: string = '';
+
+  editorOptions = {
+    theme: 'vs-dark',
+    language: 'typescript',
+    automaticLayout: true,
+    minimap: { enabled: false },
+    scrollBeyondLastLine: false,
+    readOnly: true,
+    fontSize: 14,
+    wordWrap: 'on',
+    scrollbar: {
+      useShadows: false,
+      verticalScrollbarSize: 10,
+      horizontalScrollbarSize: 10,
+    },
+    lineNumbers: 'on',
+    glyphMargin: false,
+    folding: true,
+    lineDecorationsWidth: 10,
+    lineNumbersMinChars: 3,
+    stickyScroll: {
+      enabled: false,
+    },
+    hideCursorInOverviewRuler: true,
+    renderLineHighlight: 'none',
+    cursorStyle: 'line-thin',
+  };
 
   ngOnInit() {
     this.suppressAllConsoleErrors();
-    this.isDarkMode = true;
     this.expandAllDirectories(this.fileStructure);
 
     if (this.selectedFilePath) {
@@ -263,7 +301,12 @@ export class CodeExplorerComponent
   }
 
   ngAfterViewInit() {
-    this.initMonaco();
+    // ngx-monaco-editor gestisce automaticamente l'inizializzazione
+  }
+
+  onEditorInit(editor: any) {
+    this.editor = editor;
+    // Ora l'editor è pronto all'uso
   }
 
   private expandAllDirectories(nodes: FileNode[]) {
@@ -320,68 +363,6 @@ export class CodeExplorerComponent
     }, true);
   }
 
-  private initMonaco() {
-    const originalConsoleError = console.error;
-    console.error = (...args) => {
-      if (args[0] && typeof args[0] === 'object' && args[0].type === 'error' &&
-          args[0].target instanceof Worker) {
-        return;
-      }
-      originalConsoleError.apply(console, args);
-    };
-    if (!this.editorContainer) return;
-    const options: monaco.editor.IStandaloneEditorConstructionOptions = {
-      value: this.selectedFile?.content || '',
-      language: this.getLanguageFromFile(this.selectedFile),
-      theme: this.isDarkMode ? 'vs-dark' : 'vs',
-      automaticLayout: true,
-      minimap: { enabled: false },
-      scrollBeyondLastLine: false,
-      readOnly: true,
-      fontSize: 14,
-      wordWrap: 'on',
-      scrollbar: {
-        useShadows: false,
-        verticalScrollbarSize: 10,
-        horizontalScrollbarSize: 10,
-      },
-      lineNumbers: 'on',
-      glyphMargin: false,
-      folding: true,
-      lineDecorationsWidth: 10,
-      lineNumbersMinChars: 3,
-      stickyScroll: {
-        enabled: false,
-      },
-      hideCursorInOverviewRuler: true,
-      renderLineHighlight: 'none',
-      cursorStyle: 'line-thin',
-    };
-
-    (self as any).MonacoEnvironment = {
-      getWorker(_: any, label: string) {
-        if (label === 'json') {
-          return new Worker('/assets/monaco/min/vs/language/json/jsonModel.js', { type: 'module' });
-        }
-        if (label === 'css' || label === 'scss' || label === 'less') {
-          return new Worker('/assets/monaco/min/vs/language/css/cssWorker.js', { type: 'module' });
-        }
-        if (label === 'html' || label === 'handlebars' || label === 'razor') {
-          return new Worker('/assets/monaco/min/vs/language/html/htmlWorker.js', { type: 'module' });
-        }
-        if (label === 'typescript' || label === 'javascript') {
-          return new Worker('/assets/monaco/min/vs/language/typescript/tsWorker.js', { type: 'module' });
-        }
-        return new Worker('/assets/monaco/min/vs/editor/editor.main.js', { type: 'module' });
-      }
-    };
-
-    this.editor = monaco.editor.create(
-      this.editorContainer.nativeElement,
-      options
-    );
-  }
-
   toggleNode(node: FileNode) {
     if (node.type === 'directory') {
       const index = this.expandedNodes.indexOf(node.path);
@@ -403,13 +384,12 @@ export class CodeExplorerComponent
     this.selectedFilePath = file.path;
     this.fileSelect.emit(file.path);
 
-    if (this.editor) {
-      this.editor.setValue(file.content || '');
-      monaco.editor.setModelLanguage(
-        this.editor.getModel()!,
-        this.getLanguageFromFile(file)
-      );
-    }
+    // Aggiorna il contenuto dell'editor
+    this.code = file.content || '';
+    this.editorOptions = {
+      ...this.editorOptions,
+      language: this.getLanguageFromFile(file)
+    };
   }
 
   getNodeIcon(node: FileNode): string {
@@ -483,12 +463,6 @@ export class CodeExplorerComponent
   }
 
   ngOnDestroy() {
-    if (this.editor) {
-      this.editor.dispose();
-    }
-
-    if (this.themeSubscription) {
-      this.themeSubscription.unsubscribe();
-    }
+    // Pulizia non necessaria, ngx-monaco-editor gestisce la distruzione dell'editor
   }
 }

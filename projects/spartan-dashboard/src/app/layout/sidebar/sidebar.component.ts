@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   lucideLayers,
@@ -38,6 +38,7 @@ import {
   HlmMenuGroupComponent,
 } from '@spartan-ng/ui-menu-helm';
 import { SidebarNavItem } from '../../../../../hlm-sidebar/src/lib/hlm-sidebar-group-tooltip.component';
+import { CollapsibleMode, SidebarVariant } from 'brn-sidebar';
 
 @Component({
   selector: 'sidebar',
@@ -81,7 +82,11 @@ import { SidebarNavItem } from '../../../../../hlm-sidebar/src/lib/hlm-sidebar-g
     }),
   ],
   template: `
-    <hlm-sidebar variant="sidebar" collapsibleMode="icon">
+    <hlm-sidebar
+      [variant]="sidebarVariant()"
+      [collapsibleMode]="collapsibleMode()"
+
+    >
       <hlm-sidebar-header>
         <hlm-sidebar-brand>
           <ng-icon hlm name="lucideSquare" class="h-6 w-6" />
@@ -195,6 +200,9 @@ import { SidebarNavItem } from '../../../../../hlm-sidebar/src/lib/hlm-sidebar-g
   `,
 })
 export class SidebarComponent {
+  sidebarVariant = input<SidebarVariant>('sidebar');
+  collapsibleMode = input<CollapsibleMode>('icon');
+
   protected readonly _themeService = inject(ThemeService);
   protected readonly _computedHlmMenuClass = computed(() =>
     this._themeService.isDarkMode() ? 'dark w-56' : 'w-56'
@@ -226,6 +234,5 @@ export class SidebarComponent {
     { label: 'Travel', route: '/projects/travel', icon: 'lucideCalendar' },
   ];
 
-  onNavigate(route: string) {
-  }
+  onNavigate(route: string) {}
 }

@@ -8,7 +8,7 @@ import {
   FileNode,
 } from '../showcase/code-showcase/code-explorer.component';
 import { GithubCodeExtractorService } from '../showcase/code-showcase/github-code-extractor.service';
-import { FeaturedComponent } from '../showcase/featured.component';
+import { DefaultDashboardComponent } from '../showcase/default-dashboard.component';
 import { ShowcaseContainerComponent } from '../showcase/showcase-container.component';
 
 @Component({
@@ -20,7 +20,7 @@ import { ShowcaseContainerComponent } from '../showcase/showcase-container.compo
     HeaderComponent,
     MainComponent,
     CommonModule,
-    FeaturedComponent,
+    DefaultDashboardComponent,
     CodeExplorerComponent,
   ],
   template: `
@@ -33,16 +33,30 @@ import { ShowcaseContainerComponent } from '../showcase/showcase-container.compo
             <div class="flex flex-col items-start">
               <h1 class="text-2xl font-bold">Spartan UI Dashboard</h1>
               <p class="text-sm text-muted-foreground mt-1">
-                Dashboard, sidebar and charts
+                Showcase of the Spartan UI Dashboard
               </p>
             </div>
           </div>
         </section>
 
         <!-- Showcase Component -->
-        <app-showcase-container [title]="'A simple dashboard layout'">
+        <app-showcase-container
+          [title]="'A simple dashboard layout'"
+          (selectedCategoryOutput)="onCategorySelected($event)"
+        >
           <div showcase-preview class="w-full h-full">
-            <feautured></feautured>
+
+            @switch (selectedShowCase) {
+                @case ("Standard") {
+                  <default-dashboard [collapsibleMode]="'icon'" [sidebarVariant]="'sidebar'"></default-dashboard>
+                }
+                @case ("Offcanvas") {
+                  <default-dashboard [collapsibleMode]="'offcanvas'"></default-dashboard>
+                }
+                @default {
+                  <default-dashboard [collapsibleMode]="'none'"></default-dashboard>
+                }
+            }
           </div>
           <div showcase-code class="h-[600px]">
             <div
@@ -81,6 +95,7 @@ import { ShowcaseContainerComponent } from '../showcase/showcase-container.compo
 })
 export class ShowcasePageComponent implements OnInit {
   selectedFilePath: string = '';
+  selectedShowCase: string = '';
   fileStructure: FileNode[] = [];
   isLoading: boolean = true;
 
@@ -125,6 +140,11 @@ export class ShowcasePageComponent implements OnInit {
           this.findAndSelectFirstFile(this.fileStructure);
         },
       });
+  }
+
+  onCategorySelected(category: string) {
+    this.selectedShowCase = category;
+    console.log('Selected category:', category);
   }
 
   onFileSelect(filePath: string) {

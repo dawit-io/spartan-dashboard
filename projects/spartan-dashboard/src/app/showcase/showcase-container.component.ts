@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { Router } from '@angular/router';
@@ -35,7 +35,7 @@ type DeviceView = 'desktop' | 'tablet' | 'mobile';
               [class.bg-background]="selectedCategory === category"
               [class.text-foreground]="selectedCategory === category"
               [class.shadow-sm]="selectedCategory === category"
-              (click)="selectedCategory = category">
+              (click)="selectedCategory = category; categorySelected(category)">
               {{ category }}
             </button>
           </div>
@@ -147,9 +147,10 @@ type DeviceView = 'desktop' | 'tablet' | 'mobile';
 })
 export class ShowcaseContainerComponent implements OnInit {
   @Input() title: string = 'Example Component';
-  @Input() categories: string[] = ['Featured', 'Sidebar', 'Authentication', 'Login'];
+  @Input() categories: string[] = ['Standard', 'Offcanvas'];
+  selectedCategoryOutput = output<string>();
 
-  selectedCategory: string = 'Featured';
+  selectedCategory: string = 'Standard';
   view: 'preview' | 'code' = 'preview';
   device: DeviceView = 'desktop';
   iframeUrl: SafeResourceUrl | null = null;
@@ -166,6 +167,10 @@ export class ShowcaseContainerComponent implements OnInit {
     if (newDevice !== 'desktop') {
       this.updateIframeUrl();
     }
+  }
+
+  categorySelected(category: string): void {
+    this.selectedCategoryOutput.emit(category);
   }
 
   private updateIframeUrl(): void {

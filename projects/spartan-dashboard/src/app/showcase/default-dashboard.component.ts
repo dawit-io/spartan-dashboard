@@ -1,11 +1,6 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  HostBinding,
-  inject,
-  signal
-} from '@angular/core';
-import { BrnSidebarService } from '@dawit-io/brn-sidebar';
+import { Component, HostBinding, inject, input, signal } from '@angular/core';
+import { BrnSidebarService, CollapsibleMode, SidebarVariant } from '@dawit-io/brn-sidebar';
 import {
   HlmSidebarContentHeaderComponent,
   HlmSidebarTriggerComponent,
@@ -18,7 +13,7 @@ import { SidebarComponent } from '../layout/sidebar/sidebar.component';
 import { GridComponent } from './grid.components';
 
 @Component({
-  selector: 'feautured',
+  selector: 'default-dashboard',
   imports: [
     SidebarComponent,
     HlmSidebarContentHeaderComponent,
@@ -34,7 +29,9 @@ import { GridComponent } from './grid.components';
   ],
   template: `
     <div class="flex bg-background border-gray min-h-screen">
-      <sidebar> </sidebar>
+      <sidebar
+      [sidebarVariant]="sidebarVariant()"
+      [collapsibleMode]="collapsibleMode()"> </sidebar>
       <div class="flex-1">
         <hlm-sidebar-content-header>
           <hlm-sidebar-trigger />
@@ -47,9 +44,11 @@ import { GridComponent } from './grid.components';
     </div>
   `,
 })
-export class FeaturedComponent {
+export class DefaultDashboardComponent {
   protected readonly themeService = inject(ThemeService);
   darkMode = signal<boolean>(true);
+  sidebarVariant = input<SidebarVariant>('sidebar');
+  collapsibleMode = input<CollapsibleMode>('icon');
   @HostBinding('class.dark') get mode() {
     return this.themeService.isDarkMode();
   }

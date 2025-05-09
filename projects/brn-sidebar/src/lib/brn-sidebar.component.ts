@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
 import { BrnSidebarService, CollapsibleMode, SidebarVariant } from './brn-sidebar.service';
 
 let nextId = 0;
@@ -25,6 +25,12 @@ let nextId = 0;
 export class BrnSidebarComponent {
 	constructor() {
 		this._sidebarService.setId(`brn-sidebar-${nextId++}`);
+    effect(() => {
+      this._sidebarService.setCollapsible(this.isCollapsible());
+      this._sidebarService.setOverlayMode(this.isOverlay());
+      this._sidebarService.setVariant(this.variant());
+      this._sidebarService.setCollapsibleMode(this.collapsibleMode());
+    });
 	}
 	protected readonly _sidebarService = inject(BrnSidebarService);
 	public readonly isCollapsible = input<boolean>(true);
@@ -45,6 +51,7 @@ export class BrnSidebarComponent {
 
 	protected readonly _computedVariant = computed(() => {
 		this._sidebarService.setVariant(this.variant());
+    console.log('variant', this.variant());
 		return this.variant();
 	});
 
