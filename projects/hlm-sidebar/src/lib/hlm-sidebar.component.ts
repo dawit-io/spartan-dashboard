@@ -20,6 +20,11 @@ import { ClassValue } from 'clsx';
 	`,
 })
 export class HlmSidebarComponent extends BrnSidebarComponent {
+
+  constructor() {
+    super();
+    console.log('HlmSidebarComponent constructor');
+  }
 	protected get sidebarService() {
 		return this._sidebarService;
 	}

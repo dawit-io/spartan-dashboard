@@ -10,8 +10,9 @@ import {
   OnDestroy,
   signal,
   effect,
-  afterNextRender,
+  AfterViewInit
 } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { hlm } from '@spartan-ng/brain/core';
 import { BrnSidebarService } from '@dawit-io/brn-sidebar';
 import { ClassValue } from 'clsx';
@@ -21,20 +22,21 @@ import { PortalModule } from '@angular/cdk/portal';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { HlmSidebarTooltipComponent } from './hlm-sidebar-tooltip.component';
 
-
 @Component({
   selector: 'hlm-sidebar-item',
   standalone: true,
-  imports: [CommonModule, OverlayModule, PortalModule],
+  imports: [CommonModule, OverlayModule, PortalModule, RouterModule],
   host: {
     '[class]': '_computedClass()',
   },
   template: `
-    <button
+    <a
+      [routerLink]="routerLink()"
+      [routerLinkActive]="routerLinkActive()"
       variant="ghost"
       [ngClass]="{ 'pl-2': _sidebarService.isExpanded() }"
-      class="group relative h-9 w-full"
-      (click)="clicked.emit()"
+      class="group relative h-9 w-full flex"
+      (click)="clicked.emit();"
     >
       <div
         class="flex w-full items-center"
@@ -53,7 +55,7 @@ import { HlmSidebarTooltipComponent } from './hlm-sidebar-tooltip.component';
           label()
         }}</span>
       </div>
-    </button>
+    </a>
   `,
 })
 export class HlmSidebarItemComponent implements OnDestroy {
@@ -65,6 +67,8 @@ export class HlmSidebarItemComponent implements OnDestroy {
   public readonly clicked = output<void>();
   public readonly userClass = input<ClassValue>('');
   public readonly label = input.required<string>();
+  public readonly routerLink = input<string | any[]>('');
+  public readonly routerLinkActive = input<string>('');
 
   @ViewChild('iconContainer') iconContainer!: ElementRef;
 
@@ -95,9 +99,6 @@ export class HlmSidebarItemComponent implements OnDestroy {
 
   private createTooltip(): void {
     if (!this.iconContainer) {
-      afterNextRender(() => {
-        this.createTooltip();
-      });
       return;
     }
 
@@ -114,16 +115,13 @@ export class HlmSidebarItemComponent implements OnDestroy {
         }
       ]);
 
-    // Create overlay
     this.overlayRef = this.overlay.create({
       positionStrategy,
       scrollStrategy: this.overlay.scrollStrategies.close()
     });
 
-    // Create the portal with the tooltip content
     const tooltipPortal = new ComponentPortal(HlmSidebarTooltipComponent);
     const tooltipRef = this.overlayRef.attach(tooltipPortal);
-
     tooltipRef.instance.text.set(this.label());
   }
 

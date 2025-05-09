@@ -28,10 +28,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/brn-sidebar/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
@@ -61,10 +58,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/hlm-sidebar/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
@@ -86,21 +80,24 @@
             "outputPath": "dist/spartan-dashboard",
             "index": "projects/spartan-dashboard/src/index.html",
             "browser": "projects/spartan-dashboard/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/spartan-dashboard/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "loader": {
+              ".ttf": "file"
+            },
             "assets": [
               {
                 "glob": "**/*",
                 "input": "projects/spartan-dashboard/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/monaco-editor",
+                "output": "/assets/monaco/"
               }
             ],
-            "styles": [
-              "projects/spartan-dashboard/src/styles.scss"
-            ],
-            "scripts": []
+            "styles": ["projects/spartan-dashboard/src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -108,7 +105,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "8MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -144,22 +141,21 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/spartan-dashboard/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
                 "input": "projects/spartan-dashboard/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/monaco-editor",
+                "output": "/assets/monaco/"
               }
             ],
-            "styles": [
-              "projects/spartan-dashboard/src/styles.scss"
-            ],
-            "scripts": []
+            "styles": ["projects/spartan-dashboard/src/styles.scss"]
           }
         }
       }

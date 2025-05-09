@@ -1,10 +1,10 @@
-import { effect, Injectable, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  private darkMode = signal<boolean>(true);
+  private darkMode = signal<boolean>(false);
 
   isDarkMode = this.darkMode.asReadonly();
 
