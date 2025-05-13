@@ -105,7 +105,7 @@ export class ShowcasePageComponent implements OnInit {
     this.githubService.configure({
       owner: 'dawit-io',
       repo: 'spartan-dashboard',
-      branch: 'feature/#showcase',
+      branch: 'main',
     });
 
     const manualFileStructure: FileNode[] = [
