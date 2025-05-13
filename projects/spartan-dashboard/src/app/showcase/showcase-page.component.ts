@@ -111,7 +111,7 @@ export class ShowcasePageComponent implements OnInit {
     const manualFileStructure: FileNode[] = [
       {
         name: 'showcase.component.ts',
-        path: 'projects/spartan-dashboard/src/app/showcase/featured.component.ts',
+        path: 'projects/spartan-dashboard/src/app/showcase/showcase-page.component.ts',
         type: 'file',
         language: 'typescript',
         content: '',
