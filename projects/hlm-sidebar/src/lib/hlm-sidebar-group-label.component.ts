@@ -17,7 +17,7 @@ import {
   BrnSidebarGroupDirective,
   BrnSidebarGroupLabelDirective,
   BrnSidebarService,
-} from '@dawit-io/brn-sidebar';
+} from '@dawit-io/spartan-sidebar-core';
 import { ClassValue } from 'clsx';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalModule } from '@angular/cdk/portal';

@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
-import { BrnSidebarComponent } from '@dawit-io/brn-sidebar';
+import { BrnSidebarComponent } from '@dawit-io/spartan-sidebar-core';
 import { ClassValue } from 'clsx';
 
 @Component({

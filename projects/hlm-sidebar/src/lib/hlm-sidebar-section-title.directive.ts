@@ -1,6 +1,6 @@
 import { computed, Directive, inject, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
-import { BrnSidebarService } from '@dawit-io/brn-sidebar';
+import { BrnSidebarService } from '@dawit-io/spartan-sidebar-core';
 import { ClassValue } from 'clsx';
 
 @Directive({

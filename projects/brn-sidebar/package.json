@@ -1,6 +1,18 @@
 {
-  "name": "@dawit-io/brn-sidebar",
+  "name": "@dawit-io/spartan-sidebar-core",
   "version": "0.0.1",
+  "description": "Angular sidebar component library - brain implementation",
+  "keywords": ["angular", "sidebar", "component", "ui"],
+  "author": "Dawit <dawit@gojodigital.com>",
+  "license": "MIT",
+  "homepage": "https://spartan-dashboard.gojodigital.com/showcase",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dawit-io/spartan-dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dawit-io/spartan-dashboard/issues"
+  },
   "peerDependencies": {
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0"
@@ -8,5 +20,8 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  }
 }

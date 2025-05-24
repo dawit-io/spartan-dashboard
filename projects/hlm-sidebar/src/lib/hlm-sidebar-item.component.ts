@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { hlm } from '@spartan-ng/brain/core';
-import { BrnSidebarService } from '@dawit-io/brn-sidebar';
+import { BrnSidebarService } from '@dawit-io/spartan-sidebar-core';
 import { ClassValue } from 'clsx';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';

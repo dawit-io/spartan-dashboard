@@ -29,7 +29,7 @@ import {
   HlmSidebarItemComponent,
   HlmSidebarNavComponent,
   HlmSidebarSectionTitleDirective,
-} from '@dawit-io/hlm-sidebar';
+} from '@dawit-io/spartan-sidebar';
 import {
   HlmMenuComponent,
   HlmMenuItemDirective,

@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding, inject, input, signal } from '@angular/core';
-import { BrnSidebarService, CollapsibleMode, SidebarVariant } from '@dawit-io/brn-sidebar';
+import { BrnSidebarService, CollapsibleMode, SidebarVariant } from '@dawit-io/spartan-sidebar-core';
 import {
   HlmSidebarContentHeaderComponent,
   HlmSidebarTriggerComponent,
-} from '@dawit-io/hlm-sidebar';
+} from '@dawit-io/spartan-sidebar';
 import { provideIcons } from '@ng-icons/core';
 import { lucideMoon, lucideSun } from '@ng-icons/lucide';
 import { BreadcrumbComponent } from '../layout/header/breadcrumb.component';

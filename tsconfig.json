@@ -8,11 +8,11 @@
       "hlm-sidebar": [
         "./dist/hlm-sidebar"
       ],
-      "@dawit-io/brn-sidebar": [
+      "@dawit-io/spartan-sidebar-core": [
         "./dist/brn-sidebar",
         "./projects/brn-sidebar/src/public-api.ts"
       ],
-      "@dawit-io/hlm-sidebar": [
+      "@dawit-io/spartan-sidebar": [
         "./dist/hlm-sidebar",
         "./projects/hlm-sidebar/src/public-api.ts"
       ],

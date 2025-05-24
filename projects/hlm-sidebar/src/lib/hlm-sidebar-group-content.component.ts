@@ -5,7 +5,7 @@ import { hlm } from '@spartan-ng/brain/core';
 import {
   BrnSidebarGroupDirective,
   BrnSidebarService,
-} from '@dawit-io/brn-sidebar';
+} from '@dawit-io/spartan-sidebar-core';
 import { ClassValue } from 'clsx';
 import { HlmSidebarItemComponent } from './hlm-sidebar-item.component';
 import { NgIcon } from '@ng-icons/core';

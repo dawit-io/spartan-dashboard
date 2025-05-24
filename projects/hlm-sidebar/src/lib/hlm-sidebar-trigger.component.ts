@@ -2,7 +2,7 @@ import { Component, computed, inject, input } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { lucidePanelLeft, lucidePanelRight } from '@ng-icons/lucide';
 import { hlm } from '@spartan-ng/brain/core';
-import { BrnSidebarService, BrnSidebarTriggerDirective } from '@dawit-io/brn-sidebar';
+import { BrnSidebarService, BrnSidebarTriggerDirective } from '@dawit-io/spartan-sidebar-core';
 import { ClassValue } from 'clsx';
 
 @Component({

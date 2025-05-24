@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, input, output } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
-import { BrnSidebarService } from '@dawit-io/brn-sidebar';
+import { BrnSidebarService } from '@dawit-io/spartan-sidebar-core';
 import { ClassValue } from 'clsx';
 
 @Component({

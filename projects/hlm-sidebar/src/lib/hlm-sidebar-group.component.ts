@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/brain/core';
-import { BrnSidebarGroupDirective } from '@dawit-io/brn-sidebar';
+import { BrnSidebarGroupDirective } from '@dawit-io/spartan-sidebar-core';
 import { ClassValue } from 'clsx';
 import { SidebarNavItem } from './hlm-sidebar-group-tooltip.component';
 

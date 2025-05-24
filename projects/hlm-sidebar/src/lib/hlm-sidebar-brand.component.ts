@@ -1,5 +1,5 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { BrnSidebarService } from '@dawit-io/brn-sidebar';
+import { BrnSidebarService } from '@dawit-io/spartan-sidebar-core';
 import { hlm } from '@spartan-ng/brain/core';
 import { ClassValue } from 'clsx';
 
