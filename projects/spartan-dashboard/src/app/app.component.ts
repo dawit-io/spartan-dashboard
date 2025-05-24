@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { BrnSidebarService } from '@dawit-io/spartan-sidebar-core';
 import { provideIcons } from '@ng-icons/core';
 import { lucideMoon, lucideSun } from '@ng-icons/lucide';
-import { ThemeService } from './layout/service/theme.service';
+import { ThemeService } from './showcase/demo/theme.service';
 
 @Component({
   selector: 'app-root',

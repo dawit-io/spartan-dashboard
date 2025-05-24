@@ -12,6 +12,7 @@ import { HlmSidebarNavComponent } from './lib/hlm-sidebar-nav.component';
 import { HlmSidebarSectionTitleDirective } from './lib/hlm-sidebar-section-title.directive';
 import { HlmSidebarTriggerComponent } from './lib/hlm-sidebar-trigger.component';
 import { HlmSidebarComponent } from './lib/hlm-sidebar.component';
+import { HlmSidebarGroupTooltipComponent } from './lib/hlm-sidebar-group-tooltip.component';
 
 export * from './lib/hlm-sidebar-brand.component';
 export * from './lib/hlm-sidebar-content-header.component';
@@ -26,6 +27,8 @@ export * from './lib/hlm-sidebar-nav.component';
 export * from './lib/hlm-sidebar-section-title.directive';
 export * from './lib/hlm-sidebar-trigger.component';
 export * from './lib/hlm-sidebar.component';
+export * from './lib/hlm-sidebar-group-tooltip.component';
+
 
 export const HlmSidebarImports = [
   HlmSidebarComponent,
@@ -41,6 +44,7 @@ export const HlmSidebarImports = [
   HlmSidebarFooterComponent,
   HlmSidebarInsetComponent,
   HlmSidebarSectionTitleDirective,
+  HlmSidebarGroupTooltipComponent,
 ] as const;
 
 @NgModule({

@@ -17,7 +17,7 @@ import {
 } from '@ng-icons/lucide';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import { ThemeService } from '../service/theme.service';
+import { ThemeService } from './theme.service';
 import {
   HlmSidebarBrandComponent,
   HlmSidebarComponent,
@@ -37,8 +37,8 @@ import {
   HlmMenuItemIconDirective,
   HlmMenuGroupComponent,
 } from '@spartan-ng/ui-menu-helm';
-import { SidebarNavItem } from '../../../../../hlm-sidebar/src/lib/hlm-sidebar-group-tooltip.component';
 import { CollapsibleMode, SidebarVariant } from 'brn-sidebar';
+import { SidebarNavItem } from '@dawit-io/spartan-sidebar';
 
 @Component({
   selector: 'sidebar',

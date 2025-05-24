@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { DefaultDashboardComponent  } from './showcase/default-dashboard.component';
+import { DefaultDashboardComponent  } from './showcase/demo/default-dashboard.component';
 import { ShowcasePageComponent } from './showcase/showcase-page.component';
 
 export const routes: Routes = [

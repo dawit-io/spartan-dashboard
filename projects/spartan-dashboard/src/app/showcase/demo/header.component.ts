@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGithub, lucideSun, lucideMoon } from '@ng-icons/lucide';
-import { ThemeService } from '../service/theme.service';
+import { ThemeService } from './theme.service';
 
 @Component({
-  selector: 'app-header',
+  selector: 'header',
   standalone: true,
   imports: [
     NgIcon
@@ -48,7 +48,6 @@ import { ThemeService } from '../service/theme.service';
         </div>
       </div>
     </div>
-    <!-- Spacer per compensare l'header fixed -->
     <div class="h-14"></div>
   `
 })

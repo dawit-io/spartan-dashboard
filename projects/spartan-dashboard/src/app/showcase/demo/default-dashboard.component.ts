@@ -7,13 +7,13 @@ import {
 } from '@dawit-io/spartan-sidebar';
 import { provideIcons } from '@ng-icons/core';
 import { lucideMoon, lucideSun } from '@ng-icons/lucide';
-import { BreadcrumbComponent } from '../layout/header/breadcrumb.component';
-import { ThemeService } from '../layout/service/theme.service';
-import { SidebarComponent } from '../layout/sidebar/sidebar.component';
+import { BreadcrumbComponent } from './breadcrumb.component';
+import { ThemeService } from './theme.service';
+import { SidebarComponent } from './sidebar.component';
 import { GridComponent } from './grid.components';
 
 @Component({
-  selector: 'default-dashboard',
+  selector: 'dashboard',
   imports: [
     SidebarComponent,
     HlmSidebarContentHeaderComponent,

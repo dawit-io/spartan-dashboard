@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
-import { HeaderComponent } from '../layout/header/header.component';
+import { HeaderComponent } from './demo/header.component';
 import { MainComponent } from '../layout/main/main.component';
 import {
   CodeExplorerComponent,
   FileNode,
-} from '../showcase/code-showcase/code-explorer.component';
-import { GithubCodeExtractorService } from '../showcase/code-showcase/github-code-extractor.service';
-import { DefaultDashboardComponent } from '../showcase/default-dashboard.component';
-import { ShowcaseContainerComponent } from '../showcase/showcase-container.component';
+} from './code-showcase/code-explorer.component';
+import { GithubCodeExtractorService } from './code-showcase/github-code-extractor.service';
+import { DefaultDashboardComponent } from './demo/default-dashboard.component';
+import { ShowcaseContainerComponent } from './showcase-container.component';
 
 @Component({
   selector: 'app-showcase-page',
@@ -25,7 +25,7 @@ import { ShowcaseContainerComponent } from '../showcase/showcase-container.compo
   ],
   template: `
     <div class="min-h-screen flex flex-col bg-background">
-      <app-header></app-header>
+      <header></header>
 
       <main class="flex-1">
         <section class="w-full py-3">
@@ -48,13 +48,13 @@ import { ShowcaseContainerComponent } from '../showcase/showcase-container.compo
 
             @switch (selectedShowCase) {
                 @case ("Standard") {
-                  <default-dashboard [collapsibleMode]="'icon'" [sidebarVariant]="'sidebar'"></default-dashboard>
+                  <dashboard [collapsibleMode]="'icon'" [sidebarVariant]="'sidebar'"></dashboard>
                 }
                 @case ("Offcanvas") {
-                  <default-dashboard [collapsibleMode]="'offcanvas'"></default-dashboard>
+                  <dashboard [collapsibleMode]="'offcanvas'"></dashboard>
                 }
                 @default {
-                  <default-dashboard [collapsibleMode]="'none'"></default-dashboard>
+                  <dashboard [collapsibleMode]="'none'"></dashboard>
                 }
             }
           </div>
@@ -111,14 +111,42 @@ export class ShowcasePageComponent implements OnInit {
     const manualFileStructure: FileNode[] = [
       {
         name: 'showcase.component.ts',
-        path: 'projects/spartan-dashboard/src/app/showcase/showcase-page.component.ts',
+        path: 'projects/spartan-dashboard/src/app/showcase/demo/default-dashboard.component.ts',
         type: 'file',
         language: 'typescript',
         content: '',
       },
       {
         name: 'sidebar.component.ts',
-        path: 'projects/spartan-dashboard/src/app/layout/sidebar/sidebar.component.ts',
+        path: 'projects/spartan-dashboard/src/app/showcase/demo/sidebar.component.ts',
+        type: 'file',
+        language: 'typescript',
+        content: '',
+      },
+      {
+        name: 'theme.service.ts',
+        path: 'projects/spartan-dashboard/src/app/showcase/demo/theme.service.ts',
+        type: 'file',
+        language: 'typescript',
+        content: '',
+      },
+      {
+        name: 'header.component.ts',
+        path: 'projects/spartan-dashboard/src/app/showcase/demo/header.component.ts',
+        type: 'file',
+        language: 'typescript',
+        content: '',
+      },
+      {
+        name: 'breadcrumb.component.ts',
+        path: 'projects/spartan-dashboard/src/app/showcase/demo/breadcrumb.component.ts',
+        type: 'file',
+        language: 'typescript',
+        content: '',
+      },
+      {
+        name: 'grid.components.ts',
+        path: 'projects/spartan-dashboard/src/app/showcase/demo/grid.components.ts',
         type: 'file',
         language: 'typescript',
         content: '',
