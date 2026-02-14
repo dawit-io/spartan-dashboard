@@ -46,12 +46,8 @@ jobs:
         run: |
           cd dist/brn-sidebar
           npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish sidebar
         run: |
           cd dist/hlm-sidebar
           npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
