@@ -31,12 +31,12 @@ import { HlmSidebarTooltipComponent } from './hlm-sidebar-tooltip.component';
   },
   template: `
     <a
-      [routerLink]="routerLink()"
-      [routerLinkActive]="routerLinkActive()"
-      variant="ghost"
+      [attr.href]="link() ? null : 'javascript:void(0)'"
+      [routerLink]="link() || null"
+      [routerLinkActive]="linkActive()"
       [ngClass]="{ 'pl-2': _sidebarService.isExpanded() }"
-      class="group relative h-9 w-full flex"
-      (click)="clicked.emit();"
+      class="group relative h-9 w-full flex cursor-pointer"
+      (click)="clicked.emit()"
     >
       <div
         class="flex w-full items-center"
@@ -67,8 +67,8 @@ export class HlmSidebarItemComponent implements OnDestroy {
   public readonly clicked = output<void>();
   public readonly userClass = input<ClassValue>('');
   public readonly label = input.required<string>();
-  public readonly routerLink = input<string | any[]>('');
-  public readonly routerLinkActive = input<string>('');
+  public readonly link = input<string | any[]>('');
+  public readonly linkActive = input<string>('');
 
   @ViewChild('iconContainer') iconContainer!: ElementRef;
 

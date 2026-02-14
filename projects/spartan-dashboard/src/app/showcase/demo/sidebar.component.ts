@@ -15,7 +15,6 @@ import {
   lucideCreditCard,
   lucideLogOut,
 } from '@ng-icons/lucide';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import { ThemeService } from './theme.service';
 import {
@@ -55,8 +54,6 @@ import { SidebarNavItem } from '@dawit-io/spartan-sidebar';
     HlmSidebarGroupContentComponent,
     HlmSidebarSectionTitleDirective,
     HlmSidebarFooterComponent,
-    RouterLink,
-    RouterLinkActive,
     BrnMenuTriggerDirective,
     HlmMenuComponent,
     HlmMenuItemDirective,
@@ -125,9 +122,7 @@ import { SidebarNavItem } from '@dawit-io/spartan-sidebar';
 
         <hlm-sidebar-item
           label="Settings"
-          routerLink="/settings"
-          routerLinkActive="active"
-          (clicked)="onNavigate('/settings')"
+          (clicked)="onNavigate('')"
         >
           <ng-icon
             hlm
@@ -141,8 +136,6 @@ import { SidebarNavItem } from '@dawit-io/spartan-sidebar';
         @for(project of projects; track project.label) {
         <hlm-sidebar-item
           [label]="project.label"
-          [routerLink]="project.route"
-          routerLinkActive="active"
           (clicked)="onNavigate(project.route)"
         >
           <ng-icon
@@ -209,29 +202,29 @@ export class SidebarComponent {
   );
 
   playgroundItems: SidebarNavItem[] = [
-    { label: 'History', link: '/history', routerLinkActive: 'active' },
-    { label: 'Starred', link: '/starred', routerLinkActive: 'active' },
-    { label: 'Settings', link: '/settings', routerLinkActive: 'active' },
+    { label: 'History', link: '', routerLinkActive: '' },
+    { label: 'Starred', link: '', routerLinkActive: '' },
+    { label: 'Settings', link: '', routerLinkActive: '' },
   ];
 
   models: SidebarNavItem[] = [
-    { label: 'Genesis', link: '/models/genesis', routerLinkActive: 'active' },
-    { label: 'Explorer', link: '/models/explorer', routerLinkActive: 'active' },
-    { label: 'Quantum', link: '/models/quantum', routerLinkActive: 'active' },
+    { label: 'Genesis', link: '', routerLinkActive: '' },
+    { label: 'Explorer', link: '', routerLinkActive: '' },
+    { label: 'Quantum', link: '', routerLinkActive: '' },
   ];
 
   projects = [
     {
       label: 'Design Engineering',
-      route: '/projects/design',
+      route: '',
       icon: 'lucideCalendar',
     },
     {
       label: 'Sales & Marketing',
-      route: '/projects/sales',
+      route: '',
       icon: 'lucideUsers',
     },
-    { label: 'Travel', route: '/projects/travel', icon: 'lucideCalendar' },
+    { label: 'Travel', route: '', icon: 'lucideCalendar' },
   ];
 
   onNavigate(route: string) {}

@@ -1,6 +1,5 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { hlm } from '@spartan-ng/brain/core';
 import {
   BrnSidebarGroupDirective,
@@ -14,7 +13,7 @@ import { SidebarNavItem } from './hlm-sidebar-group-tooltip.component';
 @Component({
   selector: 'hlm-sidebar-group-content',
   standalone: true,
-  imports: [CommonModule, RouterModule, HlmSidebarItemComponent, NgIcon],
+  imports: [CommonModule, HlmSidebarItemComponent, NgIcon],
   host: {
     '[class]': '_computedClass()',
     '[attr.data-state]':
@@ -34,8 +33,8 @@ import { SidebarNavItem } from './hlm-sidebar-group-tooltip.component';
         @if (items().length > 0) { @for (item of items(); track item.link) {
         <hlm-sidebar-item
           [label]="item.label"
-          [routerLink]="item.link"
-          [routerLinkActive]="item.routerLinkActive || ''"
+          [link]="item.link"
+          [linkActive]="item.routerLinkActive || ''"
           (clicked)="onNavigate(item.link)"
         >
           @if (item.icon) {

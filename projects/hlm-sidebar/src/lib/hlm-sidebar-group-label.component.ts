@@ -144,8 +144,9 @@ export class HlmSidebarGroupLabelComponent implements OnDestroy {
     tooltipRef.setInput('items', this.items());
 
     tooltipRef.instance.navigate.subscribe((link) => {
-      console.log(`Navigating to ${link}`);
-      this._router.navigateByUrl(link);
+      if (link) {
+        this._router.navigateByUrl(link);
+      }
       this.removeTooltip();
     });
 

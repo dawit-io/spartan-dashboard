@@ -5,7 +5,7 @@ import { ShowcasePageComponent } from './showcase/showcase-page.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/showcase',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
   {
@@ -13,10 +13,15 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
+  {
+    path: 'components',
+    loadComponent: () =>
+      import('./pages/components/components-page.component').then((m) => m.ComponentsPageComponent),
+  },
   { path: 'showcase', component: ShowcasePageComponent },
   { path: 'featured', component: DefaultDashboardComponent  },
   {
     path: '**',
-    redirectTo: '/showcase',
+    redirectTo: '/home',
   },
 ];
