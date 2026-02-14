@@ -32,9 +32,9 @@ jobs:
       - name: Update package versions
         run: |
           cd projects/brn-sidebar
-          npm version ${{ steps.version.outputs.VERSION }} --no-git-tag-version
+          npm version ${{ steps.version.outputs.VERSION }} --no-git-tag-version --allow-same-version
           cd ../hlm-sidebar
-          npm version ${{ steps.version.outputs.VERSION }} --no-git-tag-version
+          npm version ${{ steps.version.outputs.VERSION }} --no-git-tag-version --allow-same-version
 
       - name: Build core (brn-sidebar)
         run: npm run build:core
