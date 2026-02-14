@@ -1,0 +1,57 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Update package versions
+        run: |
+          cd projects/brn-sidebar
+          npm version ${{ steps.version.outputs.VERSION }} --no-git-tag-version
+          cd ../hlm-sidebar
+          npm version ${{ steps.version.outputs.VERSION }} --no-git-tag-version
+
+      - name: Build core (brn-sidebar)
+        run: npm run build:core
+
+      - name: Build sidebar (hlm-sidebar)
+        run: npm run build:sidebar
+
+      - name: Publish core
+        run: |
+          cd dist/brn-sidebar
+          npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish sidebar
+        run: |
+          cd dist/hlm-sidebar
+          npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

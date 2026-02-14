@@ -1,6 +1,6 @@
 {
   "name": "@dawit-io/spartan-sidebar-core",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Angular sidebar component library - brain implementation",
   "keywords": ["angular", "sidebar", "component", "ui"],
   "author": "Dawit <dawit@gojodigital.com>",
