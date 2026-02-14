@@ -86,7 +86,7 @@ import { ShowcaseContainerComponent } from './showcase-container.component';
           <p
             class="text-center text-sm leading-loose text-muted-foreground md:text-left"
           >
-            © 2025 Spartan Dashboard.
+            © 2026 Spartan Dashboard.
           </p>
         </div>
       </footer>
@@ -95,7 +95,7 @@ import { ShowcaseContainerComponent } from './showcase-container.component';
 })
 export class ShowcasePageComponent implements OnInit {
   selectedFilePath: string = '';
-  selectedShowCase: string = '';
+  selectedShowCase: string = 'Standard';
   fileStructure: FileNode[] = [];
   isLoading: boolean = true;
 
