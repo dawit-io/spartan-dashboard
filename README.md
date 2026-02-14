@@ -1,59 +1,85 @@
-# SpartanDashboardWorkspace
+# Spartan Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
+A sidebar and dashboard component library for Angular, following the [spartan-ng](https://www.spartan.ng/) Brain/Helm pattern. Headless primitives + pre-styled Tailwind CSS components.
 
-## Development server
+## Packages
 
-To start a local development server, run:
+| Package | Description |
+|---------|-------------|
+| [`@dawit-io/spartan-sidebar-core`](https://www.npmjs.com/package/@dawit-io/spartan-sidebar-core) | Headless sidebar primitives (Brain layer) |
+| [`@dawit-io/spartan-sidebar`](https://www.npmjs.com/package/@dawit-io/spartan-sidebar) | Pre-styled sidebar components with Tailwind CSS (Helm layer) |
 
-```bash
-ng serve
-```
+## Live Demo
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+[spartan-dashboard.gojodigital.com](https://spartan-dashboard.gojodigital.com)
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Quick Start
 
 ```bash
-ng generate --help
+npm install @dawit-io/spartan-sidebar @dawit-io/spartan-sidebar-core
 ```
 
-## Building
+```html
+<hlm-sidebar [variant]="'sidebar'" [collapsibleMode]="'icon'">
+  <hlm-sidebar-header>
+    <hlm-sidebar-brand>My App</hlm-sidebar-brand>
+  </hlm-sidebar-header>
+  <hlm-sidebar-nav>
+    <hlm-sidebar-item label="Dashboard" routerLink="/dashboard">
+      <ng-icon hlm name="lucideLayoutDashboard" class="h-4 w-4" />
+    </hlm-sidebar-item>
+  </hlm-sidebar-nav>
+</hlm-sidebar>
+```
 
-To build the project run:
+## Features
+
+- 3 sidebar variants: `sidebar`, `floating`, `inset`
+- 3 collapsible modes: `icon`, `offcanvas`, `none`
+- Signal-based reactive state management
+- Auto-responsive: switches to offcanvas on mobile (<=768px)
+- Dark mode support via Tailwind CSS
+- Accessible: ARIA attributes, keyboard navigation, semantic roles
+- Collapsible groups with animated expand/collapse
+- Auto-tooltips on collapsed items
+- Brain/Helm architecture: use headless primitives or styled components
+
+## Development
+
+This is an Angular CLI workspace with three projects:
+
+```
+projects/
+  brn-sidebar/          # @dawit-io/spartan-sidebar-core (headless)
+  hlm-sidebar/          # @dawit-io/spartan-sidebar (styled)
+  spartan-dashboard/    # Demo application
+```
+
+### Commands
 
 ```bash
-ng build
+# Start the demo app
+npm start
+
+# Build everything (core -> sidebar -> app)
+npm run build
+
+# Watch mode for development
+npm run watch:brn    # Watch brn-sidebar
+npm run watch:hlm    # Watch hlm-sidebar
+npm run watch:app    # Serve spartan-dashboard
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Build Order
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Libraries must be built before the app:
 
 ```bash
-ng test
+npm run build:core    # brn-sidebar
+npm run build:sidebar # hlm-sidebar
+npm run build:app     # spartan-dashboard
 ```
 
-## Running end-to-end tests
+## License
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+MIT
