@@ -10,8 +10,6 @@ import { ClassValue } from 'clsx';
 		'[class]': '_computedClass()',
 		'[attr.data-state]': 'sidebarService.isExpanded() ? "expanded" : "collapsed"',
 		'[attr.data-collapsible]': 'sidebarService.collapsibleMode()',
-		'[style.scrollbar-width]': '"thin"',
-		'[style.scrollbar-color]': '_computedScrollbarColor()',
 	},
 	template: `
 		<div class="flex h-full flex-col">
@@ -65,7 +63,4 @@ export class HlmSidebarComponent extends BrnSidebarComponent {
 	);
 
 	public readonly userClass = input<ClassValue>('');
-	protected readonly _computedScrollbarColor = computed(
-		() => 'var(--muted-foreground, hsl(var(--muted-foreground))) var(--border-color, hsl(var(--muted)))',
-	);
 }

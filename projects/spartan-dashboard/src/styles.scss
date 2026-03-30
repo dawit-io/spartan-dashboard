@@ -77,3 +77,25 @@
   --input: 0 0% 15.9%;           /* Very dark gray */
   --ring: 0 0% 83.9%;            /* Light gray */
  }
+
+/* hlm-sidebar scrollbar */
+hlm-sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+hlm-sidebar:hover {
+  scrollbar-color: hsl(var(--muted-foreground) / 0.4) transparent;
+}
+hlm-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+hlm-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+hlm-sidebar::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 4px;
+}
+hlm-sidebar:hover::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted-foreground) / 0.4);
+}
